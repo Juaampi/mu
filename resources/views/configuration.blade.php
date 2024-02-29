@@ -49,7 +49,13 @@
                 <i class="fa fa-id-badge" aria-hidden="true"></i>
                 <span>Información</span>                
               </a>
-            </li>                  
+            </li>        
+            <li class="sidebar">
+              <a href="/coins" class="menu-button">
+                <i class="fa fa-id-badge" aria-hidden="true"></i>
+                <span>Obtener Wcoins</span>                
+              </a>
+            </li>          
             <li class="sidebar-dropdown">
                 <a class="btn-pointer">
                 <i class="fa fa-users" aria-hidden="true"></i>
@@ -89,29 +95,12 @@
               </li>
             </ul>
           </div>
-      <!-- sidebar-content  -->
-      <div class="sidebar-footer">
-        <a href="#">
-          <i class="fa fa-bell"></i>
-          <span class="badge badge-pill badge-warning notification">3</span>
-        </a>
-        <a href="#">
-          <i class="fa fa-envelope"></i>
-          <span class="badge badge-pill badge-success notification">7</span>
-        </a>
-        <a href="#">
-          <i class="fa fa-cog"></i>
-          <span class="badge-sonar"></span>
-        </a>
-        <a href="#">
-          <i class="fa fa-power-off"></i>
-        </a>
-      </div>
+    
     </nav>
     <!-- sidebar-wrapper  -->
     <div id="information" class="page-content" style="margin-top: 60px;width:100%">
       <div class="container" style="width:100%">
-        <h2>Información de la cuenta</h2>
+        <h2>Configuración de la cuenta</h2>
         <hr>
         <div class="row">
           <div class="col-md-4">
@@ -120,40 +109,80 @@
                   Datos personales
               </div>
               <div class="panel-body">
-                <form method="POST" action="{{route('changeimage')}}" enctype="multipart/form-data">
-                  {{ csrf_field() }}  
-                  <input type="hidden" value="{{Auth::user()->memb_guid}}" name="memb_guid" />
-                  <p id="img-contenedor" style="text-align: center"><img id="img-perfil" @if(Auth::user()->img) height="60px" src="img-perfil/{{Auth::user()->img}}" @else src="img-perfil/avatar.jpg" height="60px" @endif></p>              
-                  <input data-multiple-caption="{count} files selected" multiple id="file" type="file" name="file" class="inputfile" accept="image/*" style="display: none">
-                  <p style="text-align: center"><label id="labelImg" style="font-size: 13px;font-weight: bold;color: white;border:none;background: none;font-family: 'roboto', sans-serif; margin-top: 20px;background: #85b3f9;padding: 10px;border-radius: 3px;" for="file">Cambiar imagen de perfil</label></p>
-                </form>
-              
-            <p><strong>ID account: </strong>  {{Auth::user()->memb___id}}</p>
-            <p><strong>Nombre de usuario: </strong> {{Auth::user()->memb_name}} </p>
-            <p><strong>Registrado: </strong> {{Auth::user()->created_at}} </p>
-            <p><strong>Email: </strong> {{Auth::user()->mail_addr}} </p>
-            <p><strong>País: </strong> <img src="img/flags/{{Auth::user()->country}}.gif"> </p>
+                    <a href="/password/reset">Cambiar Contraseña</a>
               </div>
-          </div>
-          </div>
-          <div class="col-md-4">
-              <div class="panel">
-            <div class="panel-heading" style="background: #31353d;color: #b5b5b5;font-weight: bold;">
-                Créditos
-            </div>
-            <div class="panel-body">
-          <p><strong>Wcoins: </strong>@if(Auth::user()->shop) {{Auth::user()->shop->WCoinC }} @else 0 @endif</p>
-          <p><strong>Goblin Points: </strong> @if(Auth::user()->shop) {{Auth::user()->shop->GoblinPoint }} @else 0 @endif          
-            </div>
-            <div class="panel-footer">
-                <a href="#">¿Cómo obtener Wcoins?</a>
-            </div>
               </div>
-        </div>
-        <div class="col-md-4">
-        </div>
         </div>
       </div>
     </div>  
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>                    
+
+  
+
+<script>      
+
+
+$(document).ready(function(){
+
+function filePreview(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              $('#btn-submit').remove();
+              $('#img-contenedor + img').remove();
+              $('#img-contenedor').append('<img id="img-perfil" src="'+e.target.result+'" style="height:70px; width:70px; border-radius: 40px;" />');
+              $('#img-contenedor').append('<br><input id="btn-submit" type="submit" value="Guardar Imagen" />');
+          }
+          reader.readAsDataURL(input.files[0]);
+          }
+      }        
+
+      $("#file").change(function () {    
+              $('#img-perfil').remove();                
+              $('#img-perfil').hide('slow');
+              filePreview(this);                
+      });
+
+      $("#btn-information").click(function() {
+          $('html, body').animate({scrollTop:0});
+          $("#information").show();
+          $("#player").hide();    
+      });      
+      $("#btn-player").click(function() {
+          $('html, body').animate({scrollTop:0});
+          $("#information").hide();
+          $("#player").show();    
+      });      
+
+$(".sidebar-dropdown > a").click(function() {
+$(".sidebar-submenu").slideUp(200);
+if (
+  $(this)
+    .parent()
+    .hasClass("active")
+) {
+  $(".sidebar-dropdown").removeClass("active");
+  $(this)
+    .parent()
+    .removeClass("active");
+} else {
+  $(".sidebar-dropdown").removeClass("active");
+  $(this)
+    .next(".sidebar-submenu")
+    .slideDown(200);
+  $(this)
+    .parent()
+    .addClass("active");
+}
+});
+
+$("#close-sidebar").click(function() {
+$(".page-wrapper").removeClass("toggled");
+});
+$("#show-sidebar").click(function() {
+$(".page-wrapper").addClass("toggled");
+});
+});
+</script>
 @endsection

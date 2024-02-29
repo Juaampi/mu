@@ -18,7 +18,7 @@ class User extends Authenticatable
      */
     protected $table = 'MEMB_INFO';
     protected $primaryKey = 'memb_guid';
-    protected $fillable = ['memb___id','memb_name', 'sno__numb','bloc_code','ctl1_code', 'mail_addr', 'memb__pwd', 'img', 'security'];
+    protected $fillable = ['memb___id','memb_name', 'sno__numb','bloc_code','ctl1_code', 'mail_addr', 'memb__pwd', 'img', 'security', 'country'];
 
     public function getAuthPassword()
     {
@@ -45,6 +45,11 @@ class User extends Authenticatable
     public function getEmailForPasswordReset() {
         return $this->mail_addr;
     }
+    public function coments()
+    {
+        return $this->hasMany('App\Coment');
+    }
+
 
   
 }

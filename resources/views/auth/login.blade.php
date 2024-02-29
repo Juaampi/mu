@@ -12,6 +12,7 @@
                     @endif
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth') }}">
                         {{ csrf_field() }}
+                        
 
                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                             <label for="username" class="col-md-4 control-label">ID de la cuenta</label>

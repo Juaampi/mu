@@ -4,6 +4,17 @@
 @if(session()->has('success'))
 <script>swal("Perfecto!", "Haz actualizado tu imagen de perfil correctamente!", "success");</script>
 @endif
+@if(session()->has('successMerc'))
+<script>swal("Pago realizado!", "Los Wcoins fueron sumados a su cuenta.", "success");</script>
+@php session()->forget('successMerc'); @endphp
+@endif
+
+@if(session()->has('failure'))
+<script>swal("Ocurrió un error", "Los Wcoins no fueron sumados a su cuenta.", "error");</script>
+@php session()->forget('failure'); @endphp
+
+@endif
+
 <div class="page-wrapper chiller-theme toggled" style="background: #fafafa">
     <a id="show-sidebar" class="btn btn-sm btn-dark" style="margin-top: -6px;font-size: 25px;z-index: 9999;margin-left: 30px">
       <i class="fa fa-bars" style="color: #85b3f9"></i>
@@ -49,7 +60,13 @@
                 <i class="fa fa-id-badge" aria-hidden="true"></i>
                 <span>Información</span>                
               </a>
-            </li>                  
+            </li> 
+            <li class="sidebar">
+              <a href="/coins" class="menu-button">
+                <i class="fa fa-id-badge" aria-hidden="true"></i>
+                <span>Obtener Wcoins</span>                
+              </a>
+            </li>                     
             <li class="sidebar-dropdown">
                 <a class="btn-pointer">
                 <i class="fa fa-users" aria-hidden="true"></i>
@@ -90,23 +107,7 @@
             </ul>
           </div>
       <!-- sidebar-content  -->
-      <div class="sidebar-footer">
-        <a href="#">
-          <i class="fa fa-bell"></i>
-          <span class="badge badge-pill badge-warning notification">3</span>
-        </a>
-        <a href="#">
-          <i class="fa fa-envelope"></i>
-          <span class="badge badge-pill badge-success notification">7</span>
-        </a>
-        <a href="#">
-          <i class="fa fa-cog"></i>
-          <span class="badge-sonar"></span>
-        </a>
-        <a href="#">
-          <i class="fa fa-power-off"></i>
-        </a>
-      </div>
+    
     </nav>
     <!-- sidebar-wrapper  -->
     <div id="information" class="page-content" style="margin-top: 60px;width:100%">
@@ -146,7 +147,7 @@
           <p><strong>Goblin Points: </strong> @if(Auth::user()->shop) {{Auth::user()->shop->GoblinPoint }} @else 0 @endif          
             </div>
             <div class="panel-footer">
-                <a href="#">¿Cómo obtener Wcoins?</a>
+                <a href="/coins">¿Cómo obtener Wcoins?</a>
             </div>
               </div>
         </div>

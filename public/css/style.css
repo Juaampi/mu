@@ -18,6 +18,17 @@
         font-size: 15px;
     }
 
+    .news-btn:hover{
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -ms-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        background-color: #ffffff;
+        border-bottom: 2px solid #6ca1f3;
+        font-size: 14px;
+    }
+
     .swiper-container {
         width: 600px;
         height: 300px;

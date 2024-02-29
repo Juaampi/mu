@@ -85,6 +85,7 @@ class RegisterController extends Controller
             'memb__pwd' => $data['password'],
             'img' => $name,
             'security' => $data['code'],
+            'country' => $data['pais']
         ]);
     }
 }

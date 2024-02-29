@@ -5,9 +5,10 @@
 <div class="container-fluid" style="background-image: url('img/duelos.jpg')" >
 
     <div class="container">
-        <div class="row" style="margin-top: 300px;">
-            <div class="col-md-6">
-                <h3 style="color:white;font-weight:bold;">Ranking de duelos</h3>
+        <div class="row" style="margin-top: 150px;">
+            <div class="col-md-12" style="text-align: center">
+                <img src="img/duelo.png" style="height: 100px">
+                <p style="color:white;font-size: 40px;font-family:'Bowlby One SC', cursive;">RANKING <span style="color:#30b4f9;font-weight: bold;">DUELOS</span></p>
             </div>
         </div>
     </div>

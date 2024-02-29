@@ -2,14 +2,18 @@
 
 @section('content')
 
-<div class="container-fluid" style="background-image: url('img/ranking.jpg')" >
+<div class="container-fluid"  style="background-image: linear-gradient(
+    rgba(0, 0, 0, 78%),
+    rgba(0, 0, 0, 78%)
+  ),url('img/rankgeneral.jpg')" >
 
 <div class="container">
-<div class="row" style="margin-top: 300px;">
-    <div class="col-md-6">
-        <h3 style="color:white;font-weight:bold;">Ranking General</h3>
+    <div class="row" style="margin-top: 150px;">
+        <div class="col-md-12" style="text-align: center">
+            <img src="img/general.png" style="height: 100px">
+            <p style="color:white;font-size: 40px;font-family:'Bowlby One SC', cursive;">RANKING <span style="color:#edaf35;font-weight: bold;">GENERAL</span></p>
+        </div>
     </div>
-</div>
 </div>
 </div>
 <div class="container" style="margin-top: 20px;">
@@ -85,52 +89,48 @@
                 <td>
                     <img style="height: 20px;margin-top: 20px;" src="img/flags/{{$char->country}}.gif" />
                 </td>
-                    <td>   <p style="margin-top:20px;"> 
-                    @php $char->cLevel = $char->cLevel + $char->MasterLevel; @endphp
-                    @if($char->cLevel >= 1 && $char->cLevel <= 50)                        
-                        <span>Novato</span>
-                    @endif  
-                    @if($char->cLevel >= 51 && $char->cLevel <= 100)                        
-                        <span>Aprendiz</span>
-                    @endif
-                    @if($char->cLevel >= 101 && $char->cLevel <= 150)                        
-                        <span>Mensajero</span>
-                    @endif
-                    @if($char->cLevel >= 151 && $char->cLevel <= 200)                        
-                        <span>Cazador</span>
-                    @endif
-                    @if($char->cLevel >= 201 && $char->cLevel <= 250)                        
-                        <span>Asesino</span>
-                    @endif
-                    @if($char->cLevel >= 251 && $char->cLevel <= 300)                        
-                        <span>Arquero</span>
-                    @endif
-                    @if($char->cLevel >= 301 && $char->cLevel <= 350)                        
-                        <span>Lancero</span>
-                    @endif 
-                    @if($char->cLevel >= 351 && $char->cLevel <= 370)                        
-                        <span>Caballero</span>
-                    @endif         
-                    @if($char->cLevel >= 371 && $char->cLevel <= 390)
-                        <img src="img/1.png" title="SOLDADO" style="width: 10px"> 
-                        <span>Soldado</span>
-                    @endif
-                    @if($char->cLevel >= 391 && $char->cLevel <= 400)
-                        <img src="img/2.png" title="GUERRERO" style="width: 10px"> 
-                        <span>Guerrero</span>
-                    @endif
-                    @if($char->cLevel >= 401 && $char->cLevel <= 410)
-                        <img src="img/3.png" title="GLADIADOR" style="width: 10px"> 
-                        <span>Gladiador</span>
-                    @endif
-                    @if($char->cLevel >= 411 && $char->cLevel <= 420)
-                        <img src="img/4.png" title="GENERAL" style="width: 10px"> 
-                        <span>General</span>
-                    @endif
-                    @if($char->cLevel >= 421 && $char->cLevel <= 425)
-                        <img src="img/5.png" title="SUPREMO" style="width: 10px"> 
-                        <span>Supremo</span>
-                    @endif
+                    <td>   <p> 
+                        @php $char->cLevel = $char->cLevel + $char->MasterLevel; @endphp
+                        @if($char->cLevel >= 1 && $char->cLevel <= 50)
+                            <img src="img-rank/Rank01.png" title="NOVATO" style="height: 50px"> 
+                        @endif
+                        @if($char->cLevel >= 51 && $char->cLevel <= 100)
+                            <img src="img-rank/Rank02.png" title="APRENDIS" style="height: 50px"> 
+                        @endif      
+                        @if($char->cLevel >= 101 && $char->cLevel <= 150)
+                            <img src="img-rank/Rank03.png" title="MENSAJERO" style="height: 50px"> 
+                        @endif  
+                        @if($char->cLevel >= 151 && $char->cLevel <= 200)
+                            <img src="img-rank/Rank04.png" title="CAZADOR" style="height: 50px"> 
+                        @endif
+                        @if($char->cLevel >= 201 && $char->cLevel <= 250)
+                            <img src="img-rank/Rank05.png" title="ASESINO" style="height: 50px"> 
+                        @endif   
+                        @if($char->cLevel >= 251 && $char->cLevel <= 300)
+                            <img src="img-rank/Rank06.png" title="ARQUERO" style="height: 50px"> 
+                        @endif
+                        @if($char->cLevel >= 301 && $char->cLevel <= 350)
+                            <img src="img-rank/Rank07.png" title="LANCERO" style="height: 50px"> 
+                        @endif              
+                        @if($char->cLevel >= 351 && $char->cLevel <= 370)
+                            <img src="img-rank/Rank08.png" title="CABALLERO" style="height: 50px"> 
+                        @endif
+                        @if($char->cLevel >= 371 && $char->cLevel <= 390)
+                            <img src="img-rank/Rank09.png" title="SOLDADO" style="height: 50px"> 
+                        @endif
+                        @if($char->cLevel >= 391 && $char->cLevel <= 400)
+                            <img src="img-rank/Rank10.png" title="GUERRERO" style="height: 50px"> 
+                        @endif
+                        @if($char->cLevel >= 401 && $char->cLevel <= 410)
+                            <img src="img-rank/Rank11.png" title="GLADIADOR" style="height: 50px"> 
+                        @endif
+                        @if($char->cLevel >= 411 && $char->cLevel <= 420)
+                            <img src="img-rank/Rank12.png" title="GENERAL" style="width: 10px"> 
+                        @endif
+                        @if($char->cLevel >= 421 && $char->cLevel <= 425)
+                            <img src="img-rank/Rank13.png" title="SUPREMO" style="height: 50px"> 
+                        @endif
+
                     </p></td>
                 </tr>
                   

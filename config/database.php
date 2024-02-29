@@ -80,7 +80,7 @@ return [
         ],
         'sqlsrv' => [
             'driver' => 'sqlsrv',
-            'host' => env('DB_HOST', 'CPX-VQY8CZBYLXC'),
+            'host' => env('DB_HOST', 'localhost'),
             'database' => env('DB_DATABASE', 'MuOnline'),
             'username' => env('DB_USERNAME', 'sa'),
             'password' => env('DB_PASSWORD', 'Juampilomas99'),

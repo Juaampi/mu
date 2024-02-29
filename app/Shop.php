@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Shop extends Model
 {
     protected $table = 'CashShopData';
-    protected $primaryKey = 'AccoundID';
+    protected $primaryKey = 'AccountID';
     protected $fillable = ['WCoinC', 'GoblinPoint'];
 
     public function user()

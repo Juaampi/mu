@@ -8,7 +8,7 @@
       /*CAMBIAR DATOS DE LA BASE DE DATOS UNA VEZ EN EL HOSTING */
 
       function comprobar1($c, $d) {    
-        $mysqli = new PDO("sqlsrv:Server=CPX-VQY8CZBYLXC;Database=MuOnline", "sa", "Juampilomas99");              
+        $mysqli = new PDO("sqlsrv:Server=DESKTOP-1I9L6OA\SQLEXPRESS;Database=MuOnlineS6", "sa", "Juampilomas99");              
         $sql = "SELECT * FROM MEMB_INFO WHERE mail_addr = '$d'";                
         $result = $mysqli->query($sql);
         $verification = false; 

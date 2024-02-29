@@ -48,7 +48,13 @@ use App\Character;
                 <i class="fa fa-id-badge" aria-hidden="true"></i>
                 <span>Información</span>                
               </a>
-            </li>                  
+            </li>          
+            <li class="sidebar">
+              <a href="/coins" class="menu-button">
+                <i class="fa fa-id-badge" aria-hidden="true"></i>
+                <span>Obtener Wcoins</span>                
+              </a>
+            </li>        
             <li class="sidebar-dropdown"  style="background: #4c4c4c8c">
                 <a class="btn-pointer">
                 <i class="fa fa-users" aria-hidden="true"></i>
@@ -89,23 +95,7 @@ use App\Character;
             </ul>
           </div>
       <!-- sidebar-content  -->
-      <div class="sidebar-footer">
-        <a href="#">
-          <i class="fa fa-bell"></i>
-          <span class="badge badge-pill badge-warning notification">3</span>
-        </a>
-        <a href="#">
-          <i class="fa fa-envelope"></i>
-          <span class="badge badge-pill badge-success notification">7</span>
-        </a>
-        <a href="#">
-          <i class="fa fa-cog"></i>
-          <span class="badge-sonar"></span>
-        </a>
-        <a href="#">
-          <i class="fa fa-power-off"></i>
-        </a>
-      </div>
+  
     </nav>   
     <div id="player" class="page-content" style="margin-top: 60px;width:100%;">
         <div class="container" style="width:100%">
@@ -195,14 +185,14 @@ use App\Character;
                 @endif
             </p>
             </div>
-            <div class="panel-footer">                
-                <p>
-                    <form action="{{route('showChangeNameForm')}}" method="POST">
+            <div class="panel-footer">                              
+                
+                    {{-- <form action="{{route('showChangeNameForm')}}" method="POST">
                              {{ csrf_field() }}          
                         <input type="hidden" name="name" value="{{$character->Name}}">
                         <input type="hidden" name="memb___id" value="{{Auth::user()->memb___id}}">
                         <input type="submit" style="color:gray; font-weight: bold;border: none; text-decoration: none;" value="Cambiar nombre"><span style="float: right;"><img src="img/coins.png" height="15px"> 300</span>                         
-                    </form>
+                    </form> --}}
             </div>
             </div>
             </div>   

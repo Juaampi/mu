@@ -5,16 +5,84 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use App\News;
 use App\Guild;
 use App\GuildMember; 
 use App\Character; 
 use App\Account; 
+use App\Preferencia; 
+use Auth;
+use Illuminate\Support\Facades\Input;
 class PlayerController extends Controller
 {
     public function ranking(){
         $chars = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->where('ctlcode','!=', '32')->orderBy('MasterLevel', 'desc')->orderBy('cLevel','desc')->get();    
         $guild = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('GuildMember', 'GuildMember.Name', '=', 'Character.Name')->join('Guild', 'GuildMember.G_Name', '=', 'Guild.G_Name')->where('ctlcode','!=', '32')->orderBy('MasterLevel', 'desc')->orderBy('cLevel','desc')->get();    
         return view('rankings', ['chars' => $chars, 'guild' => $guild]);
+    }
+
+    public function eternal(){
+
+        $charse = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->where('ctlcode','!=', '32')->orderBy('MasterLevel', 'desc')->orderBy('cLevel','desc')->get();    
+        $blood = DB::table('Character')->join('RankingBloodCastle', 'Character.Name', '=', 'RankingBloodCastle.Name')->get();
+        $chaos = DB::table('Character')->join('RankingChaosCastle', 'Character.Name', '=', 'RankingChaosCastle.Name')->get();
+        $devil = DB::table('Character')->join('RankingDevilSquare', 'Character.Name', '=', 'RankingDevilSquare.Name')->get();
+        $duelos = DB::table('Character')->join('RankingDuel', 'Character.Name', '=', 'RankingDuel.Name')->get();
+        $ilusion = DB::table('Character')->join('RankingIllusionTemple', 'Character.Name', '=', 'RankingIllusionTemple.Name')->get();
+        $santa = DB::table('Character')->join('EventSantaClaus', 'Character.Name', '=', 'EventSantaClaus.Name')->get();
+        $tvt = DB::table('Character')->join('RankingTvT', 'Character.Name', '=', 'RankingTvT.Name')->get();                
+        $guild = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('GuildMember', 'GuildMember.Name', '=', 'Character.Name')->join('Guild', 'GuildMember.G_Name', '=', 'Guild.G_Name')->where('ctlcode','!=', '32')->orderBy('MasterLevel', 'desc')->orderBy('cLevel','desc')->get();            
+        
+        foreach($charse as $char){
+            
+            $score = $char->cLevel + $char->MasterLevel;             
+            foreach($blood as $b){
+                if($b->Name == $char->Name)
+                    $score = $score + ($b->Score / 1000);
+            }  
+            
+            foreach($chaos as $c){
+                if($c->Name == $char->Name)
+                    $score = $score + ($c->Score / 1000);
+            }
+
+
+            foreach($devil as $d){
+                if($d->Name == $char->Name)
+                    $score = $score + ($d->Score / 1000);
+            }    
+            
+            foreach($ilusion as $i){
+                if($i->Name == $char->Name)
+                    $score = $score + ($i->Score / 1000);
+            }
+            
+            foreach($santa as $s){
+                if($s->Name == $char->Name)
+                    $score = $score + ($s->Score / 1000);
+            }
+
+            foreach($duelos as $d){
+                if($d->Name == $char->Name){
+                    $score = $score + ($d->WinScore * 100);
+                    $score = $score - ($d->LoseScore * 1000);
+                }
+            }
+            foreach($tvt as $t){
+                if($t->Name == $char->Name){
+                    $score = $score + ($t->Kills * 100);
+                    $score = $score - ($t->Deads * 1000);
+                }
+            }
+
+            $affected = DB::table('Character')
+              ->where('Name', $char->Name)
+              ->update(['eternal' => intval($score)]);                     
+        }
+
+        $chars = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->where('ctlcode','!=', '32')->orderBy('Eternal','desc')->get();    
+
+        return view('eternal', ['chars' => $chars, 'guild' => $guild]);
     }
 
     public function duels(){
@@ -52,7 +120,36 @@ class PlayerController extends Controller
         $accs = DB::table('MEMB_INFO')->count();
         $online = DB::table('MEMB_STAT')->where('ConnectStat', '=', '1')->count();
         $clanes = DB::table('Guild')->count();
-        return view('information', ['chars' => $chars, 'accs' => $accs, 'online' => $online, 'clanes' => $clanes]);
+        $infos = DB::table('info')->get();
+        $origin = Input::get('origin');
+        $destination = Input::get('destination');
+
+        $url = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=0");        
+        $json = json_decode(file_get_contents($url), true);
+        $url1 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=1");        
+        $json1 = json_decode(file_get_contents($url1), true);
+        $url2 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=2");        
+        $json2 = json_decode(file_get_contents($url2), true);
+        $url3 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=3");        
+        $json3 = json_decode(file_get_contents($url3), true);
+        $url4 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=4");        
+        $json4 = json_decode(file_get_contents($url4), true);
+        $url5 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=5");        
+        $json5 = json_decode(file_get_contents($url5), true);
+        $url6 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=6");        
+        $json6 = json_decode(file_get_contents($url6), true);
+        $url7 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=7");        
+        $json7 = json_decode(file_get_contents($url7), true);
+        $url8 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=8");        
+        $json8 = json_decode(file_get_contents($url8), true);
+        $url9 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=9");        
+        $json9 = json_decode(file_get_contents($url9), true);
+        $url10 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=10");        
+        $json10 = json_decode(file_get_contents($url10), true);
+
+        $merged = array_merge($json, $json1, $json2, $json3, $json4, $json5, $json6, $json7, $json8, $json9, $json10);       
+
+        return view('information', ['infos' => $infos, 'chars' => $chars, 'accs' => $accs, 'online' => $online, 'clanes' => $clanes, 'merged' => $merged]);
     }
 
     public function rules(){
@@ -61,6 +158,37 @@ class PlayerController extends Controller
         $online = DB::table('MEMB_STAT')->where('ConnectStat', '=', '1')->count();
         $clanes = DB::table('Guild')->count();
         return view('rules', ['chars' => $chars, 'accs' => $accs, 'online' => $online, 'clanes' => $clanes]);
+    }
+
+    public function mercadopago(Request $request){
+        \MercadoPago\SDK::setAccessToken("TEST-7618076562004730-061013-c873bac26a20c8276da581eddf30cb4f-439706810");
+        $preference = new \MercadoPago\Preference();
+        $payer = new \MercadoPago\Payer;
+        $item1 = new \MercadoPago\Item;
+        $item1->title = $request->wcoins . " Wcoins";
+        $item1->quantity =  1;
+        $item1->unit_price = $request->wcoins*2;
+        $preference->items = array($item1);             
+        $payer->name = Auth::user()->memb___id;
+        $payer->email = Auth::user()->memb_addr;
+        $preference->payer = $payer;
+        $preference->back_urls = array(
+            "success" => "http://localhost:8000/success",
+            "failure" => "http://localhost:8000/failure",
+            "pending" => "http://localhost:8000/pending"
+        );
+        $preference->auto_return = "approved";        
+        $preference->save();        
+
+        $preferencia = new Preferencia(); 
+        $preferencia->preference_id = $preference->id; 
+        $preferencia->wcoins = $request->wcoins; 
+        $preferencia->estado = 1; 
+        $preferencia->memb_id = Auth::user()->memb___id;
+        $preferencia->plataforma = "Mercado Pago";
+        $preferencia->save(); 
+
+        return redirect($preference->init_point); 
     }
 
     public function downloads(){
@@ -81,9 +209,16 @@ class PlayerController extends Controller
         $user->save();
         return redirect()->back()->with('reset', 'true');                                       
     }
+    public function coins(){
+        $preferencias = Preferencia::where('memb_id', '=', Auth::user()->memb___id)->get();
+        return view('coins', ['preferencias' => $preferencias]);
+    }
 
     public function dashboard(){
         return view('dashboard');
+    }
+    public function configuration(){
+        return view('configuration');
     }
     public function players(Request $request){
         $name = $request->name; 
@@ -117,6 +252,27 @@ class PlayerController extends Controller
         return redirect()->back()->with('success', 'true');
     }
 
+    public function inventory(){
+              
+
+        return view('inventory');
+    }    
+    public function launcher(){   
+        $chars = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->where('ctlcode','!=', '32')->orderBy('MasterLevel', 'desc')->orderBy('cLevel','desc')->get();    
+        $guild = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('GuildMember', 'GuildMember.Name', '=', 'Character.Name')->join('Guild', 'GuildMember.G_Name', '=', 'Guild.G_Name')->where('ctlcode','!=', '32')->orderBy('MasterLevel', 'desc')->orderBy('cLevel','desc')->get();    
+
+        if(isset($request['newid'])){
+            $new = News::find($request['newid']);
+        }else{
+            $new = News::latest('created_at')->first();
+        }        
+        $news = DB::table('news')->orderBy('created_at', 'desc')->get();
+        $coments =  DB::table('comments')->orderBy('created_at', 'desc')->get();
+        $users = DB::table('memb_info')->get();
+
+        return view('launcher', ['chars' => $chars, 'guild' => $guild, 'new' => $new, 'news' => $news, 'coments' => $coments,'users' => $users]);        
+    }    
+
     public function changeimage(Request $request){    
 
         if($request->hasFile('file')){
@@ -130,6 +286,10 @@ class PlayerController extends Controller
         $user->img = $name;        
         $user->save();
         return redirect()->back()->with('success', 'true');      
+    }
+
+    public function addnews(){
+        return view('addnews');
     }
 
 
