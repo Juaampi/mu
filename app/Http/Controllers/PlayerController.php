@@ -116,6 +116,8 @@ class PlayerController extends Controller
     }
 
     public function information(){
+        set_time_limit(0);
+        ini_set('memory_limit','1000M');
         $chars = DB::table('Character')->count();
         $accs = DB::table('MEMB_INFO')->count();
         $online = DB::table('MEMB_STAT')->where('ConnectStat', '=', '1')->count();
@@ -123,33 +125,9 @@ class PlayerController extends Controller
         $infos = DB::table('info')->get();
         $origin = Input::get('origin');
         $destination = Input::get('destination');
-
-        $url = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=0");        
-        $json = json_decode(file_get_contents($url), true);
-        $url1 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=1");        
-        $json1 = json_decode(file_get_contents($url1), true);
-        $url2 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=2");        
-        $json2 = json_decode(file_get_contents($url2), true);
-        $url3 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=3");        
-        $json3 = json_decode(file_get_contents($url3), true);
-        $url4 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=4");        
-        $json4 = json_decode(file_get_contents($url4), true);
-        $url5 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=5");        
-        $json5 = json_decode(file_get_contents($url5), true);
-        $url6 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=6");        
-        $json6 = json_decode(file_get_contents($url6), true);
-        $url7 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=7");        
-        $json7 = json_decode(file_get_contents($url7), true);
-        $url8 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=8");        
-        $json8 = json_decode(file_get_contents($url8), true);
-        $url9 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=9");        
-        $json9 = json_decode(file_get_contents($url9), true);
-        $url10 = url("https://guias.muacacias.net/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=4122&target_action=get-all-data&default_sorting=old_first&skip_rows=0&limit_rows=0&ninja_table_public_nonce=39cc28a036&chunk_number=10");        
-        $json10 = json_decode(file_get_contents($url10), true);
-
-        $merged = array_merge($json, $json1, $json2, $json3, $json4, $json5, $json6, $json7, $json8, $json9, $json10);       
-
-        return view('information', ['infos' => $infos, 'chars' => $chars, 'accs' => $accs, 'online' => $online, 'clanes' => $clanes, 'merged' => $merged]);
+        $json = file_get_contents('items.json');    
+        $json_data = json_decode($json,true); 
+        return view('information', ['infos' => $infos, 'chars' => $chars, 'accs' => $accs, 'online' => $online, 'clanes' => $clanes, 'merged' => $json_data]);
     }
 
     public function rules(){

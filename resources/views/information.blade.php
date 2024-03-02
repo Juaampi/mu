@@ -1,6 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="loader">    
+	
+</div>
+
+<style>
+  .loader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url('img/loading.gif') 50% 50% no-repeat rgb(0, 0, 0);      
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(".loader").delay(3000).fadeOut(2000);
+</script>
+
 <div class="container" >
     <div class="row" style="margin-top: 70px;">    
     <div class="col-md-8">

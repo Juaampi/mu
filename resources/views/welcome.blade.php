@@ -55,64 +55,19 @@ transition: width 2s ease-out;
     }
     </style>
 
-<div class="container-fluid" style="background-image: url('img/fondo.jpg')">
-<div class="container text-center" style="margin-top: 380px;">
+<div class="container-fluid" style="background-image: url('img/trailer.gif'); height: 100vh;">
+<div class="container text-center" style="margin-top: 60vh;">
     <div class="row">        
        <div class="col-md-12" style="font-family:'Bowlby One SC', cursive;color:#237aff;font-size:60px;text-shadow: 2px 2px 2px black">
-           UNDERMU <img src="img/logo.png" style="height: 100px"> TEMPORADA 2 
+           UNDERMU <img src="img/logo.png" style="height: 100px"> <span>SEASON 6<p style="font-size: 40px;">Temporada 2</p></span>
      </div>      
     </div>
     
  </div>
 
- <div class="container" style="margin-top: 30px;margin-bottom:10px;">
-     <div class="col-md-4 btn-download"  >
-         <a href="#">
-         <div class="row" style="background: #000000b5; border-radius: 3px; border: 2px solid #00000066; width: 108%">
-             <div class="col-md-4">
-                 <img src="img/btn-download.gif" height="120px">                    
-             </div>
-             <div class="col-md-8">
-                 <h1 style="font-size: 16px;margin-bottom: 0px;margin-top: 20px;color: #b7b7b7;font-weight: 600;text-shadow: 1px 1px 1px grey;">Download</h1>
-                 <p style="font-size: 12px; margin-bottom:0px;margin-top: 10px;margin-left: 20px;color: #b7b7b7;font-weight: 600;text-shadow: 1px 1px 1px grey;">UnderMu Server: 523Mb</p>
-                 <p style="font-size: 12px; margin-left: 20px;color: #b7b7b7;font-weight: 600;text-shadow: 1px 1px 1px grey;">Servers: <span style="color: red">MEGA</span> - Mediafire</p>
-             </div>
-         </div>
-     </a>
-     </div>
-
-
-     <div class="col-md-4" >           
-         <div class="row" style="background: #000000b5; border-radius: 3px; border: 2px solid #00000066; width: 108%">
-             <div class="col-md-4">
-                 <img src="img/information.gif" height="120px">                    
-             </div>
-             <div class="col-md-8">
-                 <p style="font-size: 16px;margin-bottom: 0px;margin-top: 20px;color: #b7b7b7;font-weight: 600;text-shadow: 1px 1px 1px grey;">Server Information</p>
-                 <p style="font-size: 12px;margin-bottom:0px;margin-left: 20px;color: #b7b7b7;font-weight: 600;text-shadow: 1px 1px 1px grey;">Status: <span style="color: rgb(20, 214, 20);">Beta Online</span></p>
-                 <p style="font-size: 12px;margin-bottom:0px;margin-left: 20px;color: #b7b7b7;font-weight: 600;text-shadow: 1px 1px 1px grey;">Experiencie: <span style="color: rgb(209, 179, 10)">Beta: x50 (original x5)</span></p>
-                 <p style="font-size: 12px;margin-left: 20px;color: #b7b7b7;font-weight: 600;text-shadow: 1px 1px 1px grey;">Drop: <span style="color: rgb(10, 90, 209)">30%</span></p>
-             </div>
-         </div>        
-     </div>
-
-     <div class="col-md-4 ">         
-         <div class="row" style="background: #000000b5; border-radius: 3px; border: 2px solid #00000066; width: 108%">
-             <div class="col-md-4">
-                 <img src="img/online.gif" height="120px">                    
-             </div>
-             <div class="col-md-8">                    
-                 <p style="font-size: 16px;margin-bottom: 0px;margin-top: 20px;color: #b7b7b7;font-weight: 600;text-shadow: 1px 1px 1px grey;">UnderMu Server</p>
-                 <p style="font-size: 12px;margin-bottom:0px;margin-top: 10px;color: #b7b7b7;font-weight: 600;text-shadow: 1px 1px 1px grey;">Online: <span style="color: rgb(48 151 209);">{{$onlines}}</span></p>                                        
-                 <div class="progress" style="height: 3px;width: 70%;text-align: center;" >
-                     <div class="progress-bar" role="progressbar" style="width: {{$onlines}}%;" aria-valuenow="{{$onlines}}" aria-valuemin="0" aria-valuemax="100"></div>
-                 </div>
-             </div>
-         </div>     
-     </div>
-
-
- </div>
+ <div class="container text-center" style="background: black; width: 15%; border-radius: 10px;">                                     
+    <p style="font-size: 22px;margin-bottom:0px;color: #ffffff;font-weight: 600;text-shadow: 1px 1px 1px grey;">ONLINE: <span style="color: rgb(48 151 209);">{{$onlines}}</span></p>                                                                                                                    
+</div>
 </div>
 
 
