@@ -37,6 +37,7 @@
                   <li><b>．</b>No se permite el uso de <b>cheats/hacks</b> de ningún tipo <b>NI NINGUN TIPO DE MACROS</b>. La sancion es necesario video incriminatorio y parte segun antecedentes de (id, name pj, ip, etc.) y la gravedad del hack y/o etc, usado.</li>
                   <li><b>．</b>No está permitido abusar de bugs/errores del juego. La sancion parte segun antecedentes de <b>(id, name pj, ip, etc.)</b> y la gravedad del mismo.</li>
                   <li><b>．</b>En caso de saber sobre algún hack, cheat, bug o dup deberá reportar información al staff.</li>
+                  <li><b>．SOLO ESTA PERMITIDO 3 CUENTAS POR PERSONA/IP/HARDWARE_ID/PC.</b></li>
                   
                   </ul>
                   <p></p><h5 class="text-danger">Penalización: Suspención permanente de la PC y/o cuenta, y si fuera necesario, de las PC y/o cuentas relacionadas.</h5>

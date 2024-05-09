@@ -18,6 +18,10 @@ class Character extends Model
         return $this->hasOne('App\GuildMembers', 'Name', 'Name');
     }
 
+    public function status(){
+        return $this->hasOne('App\Status', 'memb___id', 'AccountID');
+    }
+
 
     
 }

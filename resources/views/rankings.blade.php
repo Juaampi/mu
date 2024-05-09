@@ -18,6 +18,12 @@
 </div>
 <div class="container" style="margin-top: 20px;">
     <div class="panel">
+        <div class="panel-heading">
+            <p class="buscador">   
+                <label>Buscador de PJ's</label>             
+                <input id="buscador" class="form-control" type="input" value="" placeholder="Ingrese el nombre del personaje a buscar">
+            </p>
+        </div>
         <div class="panel-body" style="padding: 40px;">
         <div class="row">
             <table class="table table-responsive">
@@ -26,6 +32,7 @@
                     <th>Jugador</i></th>
                     <th>Level</th>
                     <th style="text-align: center">M. Level</th>
+                    <th style="text-align: center">Reset</th>
                     <th>Guild</th>
                     <th>País</th> 
                     <th>Patente</th>                    
@@ -33,7 +40,7 @@
                 @php $count = 1 @endphp
                 @foreach($chars as $char)                    
                 @php $char->cLevel = $char->cLevel + $char->MasterLevel; @endphp
-                <tr>                       
+                <tr class="item">                       
                 <td style="text-align: center">
                     @if($count == 1)
                     <img style="height: 25px; margin-top: 20px;" src="img/primero.png" />
@@ -46,7 +53,7 @@
                 </td>
                 <td>                    
                     <img src="img/class/{{$char->Class}}.png" @if($char->ConnectStat == 0) style="height: 60px;border: 2px solid #a2a2a273; border-radius: 40px;" @else style="height: 60px;border: 2px solid #30ef00; border-radius: 40px;" @endif>
-                    <span style="font-weight: bold;">{{$char->Name}}</span>
+                    <span style="font-weight: bold;" class="nombres">{{$char->Name}}</span>
                     @foreach($guild as $g)
                         @if($g->Name == $char->Name)
                            @if($g->G_Status == '128')
@@ -68,6 +75,9 @@
                 <td style="text-align:center;">
                     <p style="margin-top: 15px;font-size: 16px;font-weight: bold;color:#26b726;text-align:center">{{$char->MasterLevel}}</p>
                 </td>
+                <td style="text-align:center;">                    
+                    <p style="margin-top: 15px;font-size: 16px;font-weight: bold;">{{$char->ResetCount}}</p>
+                </td>
                 <td>
                     @php 
                         $haveGuild = 0;                        
@@ -77,7 +87,7 @@
                         @if($g->Name == $char->Name)                            
                             @php $haveGuild = 1 @endphp
                             <img style="background: gray;margin-bottom: 10px;" src="https://muonlinepvp.net/api/guildmark.php?data={{$g->G_Mark}}&size=50" />                                                    
-                            <span style="font-weight: bold; font-size: 12px">{{$g->G_Name}} </span>                            
+                            <a href="/guild?G_Name={{$g->G_Name}}"><span style="font-weight: bold; font-size: 12px">{{$g->G_Name}} </span></a>
                         @endif
                     @endforeach
                     @if($haveGuild == 0)
@@ -143,6 +153,28 @@
     </div>
 </div>
 
+<script
+src="https://code.jquery.com/jquery-3.5.1.min.js"
+integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+crossorigin="anonymous"></script>
 
-
+<script>
+    $(document).ready(function(){
+            $('#buscador').keyup(function(){
+            var nombres = $('.nombres');
+            var buscando = $(this).val();
+            var item='';
+                for( var i = 0; i < nombres.length; i++ ){
+                    item = $(nombres[i]).html().toLowerCase();
+                    for(var x = 0; x < item.length; x++ ){
+                        if( buscando.length == 0 || item.indexOf( buscando ) > -1 ){
+                            $(nombres[i]).parents('.item').show(); 
+                        }else{
+                            $(nombres[i]).parents('.item').hide();
+                        }
+                    }
+                }
+            });
+});
+</script>
 @endsection

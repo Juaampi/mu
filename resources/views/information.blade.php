@@ -243,7 +243,125 @@ $(".loader").delay(3000).fadeOut(2000);
                             {!! html_entity_decode($info->extra) !!}
                         @endforeach
                     </div>
+
+                    <a id="btn-vip" class="list-group-item menu-button" style="text-decoration: none; color: black;"><p class="btn-news"> <span style="color: #237aff;font-weight: bold;">Todo sobre el VIP <span style="color: #ffffff;font-size: 12px;background: #ffd600;padding: 4px;font-weight: bold;border-radius: 3px;margin-left: 3px;">VIP</span><span style="float: right;"><i class="fa fa-chevron-down" aria-hidden="true"></i></span></p></a>                                                           
+                    <div class="container" id="vip-container" style="width: 100%;display: none;padding: 15px;">
+                        <h3>Información sobre el VIP</h3>
+                        <p>Bueno como ya han leído más arriba, nuestro servidor al ser un SLOW-HARD, no vamos a contar con webshop ni venta de items, sólo vamos a contar con la venta de la membresía VIP, la cual van a poder adquirir con Wcoins, obtenidos por donación o por eventos en el juego. Ya que nosotros nos vamos a enfocar en un servidor Play To Win y no Pay To Win.</p>
+                        <h4 style="text-align: center">¿Cuánto cuesta el VIP? </h4>
+                        <p style="text-align: center">   <div class="alert alert-warning text-center">El vip tiene un costo de <strong>2000 Wcoins</strong> por mes.</div>
+                        </p>
+
+                        <h4 style="text-align: center">¿Cómo obtengo el VIP? </h4>
+                        <p style="text-align: center"> Para ser VIP en UnderMu utilizaremos un comando el cual será el siguiente.</p>
+                        <div class="alert alert-warning text-center"><strong>/buyvip mes</strong></div>
+                        
+                        <h4 style="text-align: center">¿Qué ventajas obtengo siendo VIP? </h4>
+                        <small class="text-danger">EL VIP NO VA A TENER AUMENTO DE EXPERIENCIA</small>
+                        <h4><strong>Aumento de drop</strong></h4>
+                        <p>Aumento de drop de ZEN e ITEMS +LUCK +OPTION en un 15% más que los usuarios normales.</p>
+                        <p>De estar en party con un usuario normal el porcentaje se dividirá en 2, por ejemplo si un personaje VIP y un personaje normal estan leveleando juntos en party, el aumento de DROP de items +luck+option y de zen se disminuirá a la mitad. </p>
+                        <h4><strong>Comandos de los VIP</strong></h4>
+                        <p><strong>/pkclear </strong> Comando para limpiar el PK. (Tiene un costo de 200Wcoins).</p>
+                        <p><strong>/readd </strong> Comando para resetear los stats. (Tiene un costo de 100Wcoins).</p>
+                        <p><strong>/treereset </strong> Comando para resetear los stats del árbol de poderes. (Tiene un costo de 300Wcoins).</p>
+                        <p><strong>/rename </strong> Comando para cambiar de nombre el Personaje (Tiene un costo de 500Wcoins.)</p>
+                        <p><strong>/ware </strong> Comando para utilizar baules extras, (/ware 0, /ware 1) tiene hasta 4 baules extra. (Sin costo adicional). </p>
+                        <p><strong>/pack </strong> Comando para hacer un pack de joyas gratis EJ: /pack soul. (Sin costo adicional) </p>
+                        <h4><strong> VIP - Mapa Non PVP</strong></h4>
+                        <p>Al ser VIP vas a poder ingresar a Kanturu 3, el cual es un mapa Non-PVP de excelencia para los master levels y que contiene 1 mob menos que los mapas normales, pero la misma experiencia. </p>
+                        <h4><strong> Aumento de la Máquina del Chaos</strong></h4>
+                        <p>Vas a contar con un aumento en la máquina del chaos para las siguientes combinaciones</p>
+                        <p>+15% de aumento de acierto en items +10 +11 +12 +13 +14 y +15. Ejemplo Usuario normal con item a +10 (70% y VIP 85%)</p>
+                        <p>+15% de aumento de acierto en Wings Evo y Wings EVO 3era quest</p>
+                        <p>+15% de aumento de acierto en la LORD MIX</p>
+                        <p>+15% de aumento de acierto en las comibinaciones de Jewel of Harmony</p>
+
+
+                    </div>
+
+                    <a id="btn-comandos" class="list-group-item menu-button" style="text-decoration: none; color: black;"><p class="btn-news"> <span style="color: #237aff;font-weight: bold;">Comandos <span style="float: right;"><i class="fa fa-chevron-down" aria-hidden="true"></i></span></p></a>                                                           
+                    <div class="container" id="comandos-container" style="width: 100%;display: none;padding: 15px;">
+                        <h3>Comandos de UnderMu</h3>     
+                        <hr/>                                 
+                        <h5><strong>/store</strong> El comando /store sirve para abrir tu tienda de Mu de la letra S. </h5>
+                        <h5>Puede colocar los item en la tienda, elegir el precio (primero van a elegir por zen y despues cuando pongan el comando se va a cambiar a la moneda que le pongan). </h5>
+                        <h5>Se utiliza de la siguiente manera: /store wcoins - /store bless - /store soul - /store chaos - /store creation</h5>                      
+                        
+                        <hr/>
+                        <h5><strong>/offstore</strong> El comando /offstore sirve para que tu cuenta con el shop quede abierta y tu ventana de juego se cierre, permitiendote vender offline. </h5>
+                        <h5>Para que éste comando funcione deberá tener uan tienda (/store) abierta. </h5>
+                        <h5>Se utiliza de la siguiente manera: /offstore</h5>                      
+                        
+
+                        <hr/>
+                        <h5><strong>/attack</strong> El comando /attack se utiliza para que tu personaje quede tirando un poder. Este comando no tiene costo.</h5>
+                        <h5>Esta es la lista de los comandos para cada raza. </h5>
+                        <h5>Comandos para /attack de cada Raza:
+                        <ul>
+                            <strong><li>ELF:</li></strong>
+                            <li>Triple Shot /attack 24</li>
+                            <li>Elf Buff /attack 24 1 ( requiere tripleshot )</li>
+                        </ul>
+                        <ul>
+                            <strong><li>SM: </li></strong>
+                            <li>Evil /attack 9 1</li>
+                            <li>Ice Storm /attack 39 1</li>
+                        </ul>
+                        <ul>
+                            <strong><li>BK:</li></strong>
+                            <li>Twisting /attack 41 1</li>
+                        </ul>
+                        <ul>
+                            <strong><li>MG:</li></strong>
+                            <li>Twisting /attack 41</li>
+                            <li>Power Slash /attack 56</li>
+                        </ul>
+                        <ul>
+                            <strong><li>DL:</li></strong>
+                            <li>Fireburst /attack 61 1 </li>
+                            <li>Fire Scream /attack 78 1 </li>
+                            <li>Chaotic /attack 238 1</li>
+                        </ul>
+                        <ul>
+                            <strong><li>SUMMONER: </li></strong>
+                            <li>Chain Lightning /attack 215</li>
+                            <li>Lightning Storm /attack 237</li>
+                        </ul>
+                        <ul>
+                            <strong><li>RF: </li></strong>
+                            <li>Dark Side /attack 263 1 </li>
+                            <li>Dragon Lore /attack 264 1</li>
+                        </ul>
+                        </h5>
+
+                        <hr/>
+                        <h5><strong>/offattack</strong> El comando /offattack se utiliza para que tu personaje quede tirando un poder pero OFFLINE. Este comando no tiene costo.</h5>
+                        <h5>Se requiere tener /attack prendido para que funcione correctamente.</h5>
+                       <hr/>
+                        <h5><strong>/marry</strong> El comando /marry se utiliza casarse.</h5>                        
+                            <p><strong>1</strong>- Deben ir a la iglesia de devias 2. </p>
+                            <p><strong>2</strong>- El novio debe pararse en las coordenadas 17-23 y la novia en las coordenadas 17-24</p>                                                                                
+                            <p><strong>3</strong>- Luego de estar en dichas coordenadas el novio debe poner el comando</p>                            
+                            <strong><p>/Marry xxxxx</p></strong>                        
+                            <p>**las xxxxx es el nombre de la elf con la que se quiere casar ejemplo:</p>                            
+                            <p>/Marry estefania</p>                                                                                
+                            <p><strong>4</strong>- Al escribir esto a la novia le llegara un cartel de petición de matrimonio el cual debe aceptar con el comando</p>
+                            <p>/Acceptmarry</p>                                                                                
+                            <p>**si lo hicieron bien saldrá un aviso para todo el server : congratulations con sus nombres</p>                            
+                        
+                            <hr/>
+                            <h5><strong>/trackmarry</strong> El comando /trackmarry te lleva directamente a donde se encuentra tu pareja. </h5>
+                            <h5>Se requiere estar casado para utilizarse.</h5>
+                          <hr/>
+
+                          <h5><strong>/request auto</strong> El comando /request auto se utiliza dejar abierto el party, es decir, para que otros te puedan dar party y aceptarlo automáticamente.</h5>                          
+                          <h5>Se requiere ser el party leader para utilizar este comando.</h5>
+                         <hr/>                         
+                        
+                    </div>
                     
+
                     </div>
                 </div>
             </div>
@@ -407,6 +525,26 @@ $(".loader").delay(3000).fadeOut(2000);
                     $('#resetsystem-container').show('slow');
                 }else{
                     $('#resetsystem-container').hide('slow');
+                }
+                
+            });
+
+            $('#btn-vip').on('click', function(){ 
+                if($('#vip-container:visible').length == 0)
+                {
+                    $('#vip-container').show('slow');
+                }else{
+                    $('#vip-container').hide('slow');
+                }
+                
+            });
+
+            $('#btn-comandos').on('click', function(){ 
+                if($('#comandos-container:visible').length == 0)
+                {
+                    $('#comandos-container').show('slow');
+                }else{
+                    $('#comandos-container').hide('slow');
                 }
                 
             });

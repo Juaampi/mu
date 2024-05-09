@@ -199,50 +199,52 @@ use App\Character;
             <div class="col-md-4">
                 <div class="panel">
                     <div class="panel-heading" style="background: #31353d;color: #b5b5b5;font-weight: bold;">
-                        Estadísticas de eventos
+                        Logros
                     </div>
                     <div class="panel-body">
-                        <table class="table">
-                            <thead>
-                                <th>Evento</th>
-                                <th>Puntos</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <td>
-                                    Blood Castle
-                                </td>
-                                <td>
-                                    <strong>@if(!$blood->isEmpty()){{$blood[0]->Score}}@else Sin puntos @endif</strong>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>
-                                    Chaos Castle
-                                </td>
-                                <td>
-                                    <strong>@if(!$chaos->isEmpty()){{$chaos[0]->Score}}@else Sin puntos @endif</strong>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>
-                                     Devil Square
-                                </td>
-                                <td>
-                                <strong>@if(!$devil->isEmpty()){{$devil[0]->Score}}@else Sin puntos @endif</strong>
-                                </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Illusion Temple
-                                    </td>              
-                                    <td>
-                                        <strong>@if(!$illusion->isEmpty()){{$illusion[0]->Score}}@else Sin puntos @endif</strong>
-                                    </td>                      
-                                </tr>
-                            </tbody>
-                        </table>                        
-                    </div>
+                      <div class="swiper-container3" style="width: 100% !important; overflow: hidden;">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper">                            
+                                <div class="swiper-slide text-center">
+                                  <div class="panel">
+                                    <div class="panel-body">
+                                        <img style="height: 100px;" src="img/blood.png">
+                                        <h4>Blood Castle</h4>
+                                        <h5><strong>@if(!$blood->isEmpty()){{$blood[0]->Score}} points @else Sin puntos @endif</strong></h5>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="swiper-slide text-center">
+                                  <div class="panel">
+                                    <div class="panel-body">
+                                        <img style="height: 100px;" src="img/devil.png">
+                                        <h4>Devil Square</h4>
+                                        <h5><strong>@if(!$devil->isEmpty()){{$devil[0]->Score}} points @else Sin puntos @endif</strong></h5>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="swiper-slide text-center">
+                                  <div class="panel">
+                                    <div class="panel-body">
+                                        <img style="height: 100px;" src="img/chaos.png">
+                                        <h4>Chaos Castle</h4>
+                                        <h5><strong>@if(!$chaos->isEmpty()){{$chaos[0]->Score}} points @else Sin puntos @endif</strong></h5>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="swiper-slide text-center">
+                                  <div class="panel">
+                                    <div class="panel-body">
+                                        <img style="height: 100px;" src="img/illusion.png">
+                                        <h4>Illusion Temple</h4>
+                                        <h5><strong>@if(!$illusion->isEmpty()){{$illusion[0]->Score}} points @else Sin puntos @endif</strong></h5>
+                                    </div>
+                                  </div>
+                                </div>
+                        </div>
+                      </div>
+                 
+                    </div>                                             
                     <div class="panel-footer">
                         Actualizado ahora mismo
                     </div>

@@ -16,10 +16,9 @@ use App\User;
 
 Route::get('/', function () {
     $guild = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('GuildMember', 'GuildMember.Name', '=', 'Character.Name')->join('Guild', 'GuildMember.G_Name', '=', 'Guild.G_Name')->join('MuCastle_DATA', 'MuCastle_DATA.OWNER_GUILD', '=', 'GuildMember.G_Name')->get();    
-    $chars = DB::table('Character')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->where('ctlcode','!=', '32')->orderBy('MasterLevel', 'desc')->orderBy('cLevel','desc')->take(10)->get();    
-    $killers = Character::limit(5)->orderBy('Kills', 'desc')->get();
+    $chars = DB::table('Character')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->where('ctlcode','!=', '32')->orderBy('MasterLevel', 'desc')->orderBy('cLevel','desc')->take(10)->get();        
     $leyenda = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->where('ctlcode','!=', '32')->orderBy('MasterLevel', 'desc')->orderBy('cLevel','desc')->take(1)->get();    
-    $aniquilador = Character::limit(1)->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->where('ctlcode','!=', '32')->orderBy('Kills', 'desc')->get();
+    $aniquilador = Character::limit(1)->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->where('ctlcode','!=', '32')->get();
     $millonario = Character::limit(1)->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->where('ctlcode','!=', '32')->orderBy('Money', 'desc')->get();
     $duelista = DB::table('Rankingduel')->join('Character', 'RankingDuel.Name', '=', 'Character.name')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->where('ctlcode','!=', '32')->orderBy('winscore', 'desc')->get();        
     $news = DB::table('news')->orderBy('created_at', 'desc')->get();
@@ -27,8 +26,29 @@ Route::get('/', function () {
     $guilds = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('GuildMember', 'GuildMember.Name', '=', 'Character.Name')->join('Guild', 'GuildMember.G_Name', '=', 'Guild.G_Name')->get();
     $eternals = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->where('ctlcode','!=', '32')->orderBy('eternal', 'desc')->get();
     $accs = DB::table('MEMB_INFO')->get(); 
-    return view('welcome', ['accs' => $accs, 'eternals' => $eternals, 'guilds' => $guilds, 'onlines' => $onlines, 'news' => $news, 'guild' => $guild, 'duelista' => $duelista, 'millonario' => $millonario, 'chars' => $chars, 'killers' => $killers, 'leyenda' => $leyenda, 'aniquilador' => $aniquilador]);
+    return view('welcome', ['accs' => $accs, 'eternals' => $eternals, 'guilds' => $guilds, 'onlines' => $onlines, 'news' => $news, 'guild' => $guild, 'duelista' => $duelista, 'millonario' => $millonario, 'chars' => $chars,'leyenda' => $leyenda, 'aniquilador' => $aniquilador]);
 });
+
+
+
+
+Auth::routes();
+Route::get("/foro", function() {
+    return view('forum');
+ });
+
+
+Route::post('/like', 'ForoController@like')->name('like'); 
+Route::get('/send-emails', 'EmailController@sendEmails');
+Route::get('/guild', 'PlayerController@guild');
+Route::get('/forum', 'PlayerController@forum');
+Route::get('/categoria', 'ForoController@categoria');
+Route::get('/tema', 'ForoController@tema');
+Route::post('/addrespuesta', 'ForoController@addrespuesta')->name('addrespuesta');
+Route::post('/addtema', 'ForoController@addtema')->name('addtema');
+Route::get('/agregar', 'ForoController@agregarTemaRedirect')->name('agregarTemaRedirect');
+Route::get('/editartemaredirect', 'ForoController@editartemaredirect')->name('editartemaredirect');
+Route::post('/editartema', 'ForoController@editartema')->name('editartema');
 
 Route::get('/ranking', 'PlayerController@ranking');
 Route::get('/eternal', 'PlayerController@eternal');
@@ -50,8 +70,6 @@ Route::get('/launcher', 'PlayerController@launcher');
 Route::get('/paypal/pay', 'PaymentController@payWithPayPal')->name('paypal');
 Route::get('/paypal/status', 'PaymentController@payPalStatus');
 
-
-Auth::routes();
 
 Route::post('/auth', 'Auth\LoginController@authenticate')->name('authenticate');
 Route::get('/home', 'HomeController@index');

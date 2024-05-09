@@ -50,6 +50,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Coment');
     }
 
+    public function tema() {
+        return $this->hasOne('App\Tema', 'id_usuario', 'memb___id');
+    }
 
-  
+    public function status(){
+        return $this->hasOne('App\Status', 'memb___id', 'memb___id');
+    }  
 }

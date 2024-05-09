@@ -22,10 +22,17 @@
             <span class="user-name">{{Auth::user()->memb_name}}
             </span>
             <span class="user-role">{{Auth::user()->memb___id}}</span>
-            <span class="user-status">
+            @if(Auth::user()->status->ConnectStat == 1)
+            <span class="user-status">              
               <i class="fa fa-circle"></i>
-              <span>Online</span>
+              <span>Online In-Game</span>
             </span>
+            @else
+            <span class="user-status">              
+              <i style="color: red !important" class="fa fa-circle"></i>
+              <span>Offline In-Game</span>
+            </span>
+            @endif
           </div>
         </div>        
 
@@ -124,6 +131,13 @@
               <div class="row" style="text-align: center; margin-bottom: 10px;">
                 <img src="img/mercadopago.png" style="height: 100px;">
               </div>
+            
+              
+              @if($cuenta->ConnectStat == 0)
+              <div class="alert alert-warning">
+                Las donaciones estan desactivadas
+              </div>
+              
               <div class="row">
                 <form action="{{route('mercadopago')}}" method="POST">
                   {{ csrf_field() }}  
@@ -135,6 +149,10 @@
                 </div>
                 </form>
               </div>
+              
+              @else
+              <div class="alert alert-danger">Para poder comprar debes <strong>desconectar</strong> la cuenta del juego. </div>
+              @endif
               </div>
             </div>
           </div>
@@ -147,7 +165,14 @@
             <div class="row" style="text-align: center; margin-bottom: 10px;">
               <img src="img/paypal.png" style="height: 100px;">
             </div>
+            @if($cuenta->ConnectStat == 0)
+            <div class="alert alert-warning">
+              Las donaciones estan desactivadas
+            </div>
+            
+            {{-- 
             <div class="row">
+           
               <form action="{{route('paypal')}}" method="GET">
                 {{ csrf_field() }}  
               <div class="col-md-8">
@@ -158,6 +183,11 @@
               </div>
               </form>
             </div>
+            --}}
+
+            @else
+            <div class="alert alert-danger">Para poder comprar debes <strong>desconectar</strong> la cuenta del juego. </div>
+            @endif
             
             </div>
           </div>

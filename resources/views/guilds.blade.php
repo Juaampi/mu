@@ -41,7 +41,7 @@
                 </td>                
                     <td style="width: 120px">
                         <img style="background: gray;margin-bottom: 10px;" src="https://muonlinepvp.net/api/guildmark.php?data={{$guild->G_Mark}}&size=50" />                                                    
-                        <span style="font-weight: bold; font-size: 12px">{{$guild->G_Name}} </span>                            
+                        <a href="/guild?G_Name={{$guild->G_Name}}"><span style="font-weight: bold; font-size: 12px">{{$guild->G_Name}} </span></a>                            
                     </td>
                     <td>
                         @foreach($chars as $char)

@@ -11,7 +11,7 @@
 <div class="row" style="margin-top: 150px;">
     <div class="col-md-12" style="text-align: center">
         <img src="img/logo.png" style="height: 100px">
-        <p style="color:white;font-size: 40px;font-family:'Bowlby One SC', cursive;">RANKING <span style="color:#147bac;font-weight: bold;">ETERNAL</span></p>
+        <p style="color:white;font-size: 40px;font-family:'Bowlby One SC', cursive;">RANKING <span style="color:#147bac;font-weight: bold;">UNDERMU</span></p>
     </div>
 </div>
 </div>
@@ -19,7 +19,7 @@
 <div class="container" style="margin-top: 20px;">
     <div class="panel">
         <div class="panel-heading" style="background: #e8e8e8">
-            El ranking eternal es un sistema creado para elegir a los mejores jugadores del servidor. <a data-toggle="modal" data-target="#info-eternal" class="menu-button">¿Cómo Funciona?</a>
+            The UNDERMU ranking is a system created to choose the best players on the server. <a data-toggle="modal" data-target="#info-eternal" class="menu-button">¿Cómo Funciona?</a>
         </div>
         <div class="panel-body" style="padding: 40px;">        
         <div class="row">
@@ -28,9 +28,11 @@
                     <th style="text-align: center"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></th>
                     <th>Jugador</i></th>
                     <th>Guild</th>
-                    <th>Pts Eternal</th>
+                    <th>Pts UNDERMU</th>
                     <th>Asesinatos</th>
-                    <th>Muertes</th>
+                    <th>BC</th>                    
+                    <th>DS</th>                    
+                    <th>CC</th>                    
                     <th>Level <span style="font-size: 12px;color: rgb(0, 157, 255);">ML</span></th>                                        
                     <th>País</th> 
                     <th>Patente</th>                    
@@ -90,10 +92,72 @@
                   <p style="margin-top: 15px;font-size: 16px;"> <span style="background: #85b3f9;color: white;padding: 5px;border-radius: 5px;">{{$char->eternal}}</span></p>
                 </td>
                 <td> 
-                    <p style="margin-top: 15px;font-size: 16px;color:rgb(36, 113, 36);">{{$char->Kills}}</p>
+                    <p style="margin-top: 15px;font-size: 16px;color:rgb(36, 113, 36);">{{$char->PkCount}}</p>
+                </td>  
+                <td>                      
+                    @foreach($blood as $bc)
+                        @if($char->Name == $bc->Name)      
+                            <p style="margin-top: 15px;font-size: 16px;font-weight: bold;">
+                                @php 
+                                    if ($bc->Score < 1000000) {
+                                        // Anything less than a million
+                                        $format = number_format($bc->Score / 1000, 0) . 'k';
+                                    } else if ($number < 1000000000) {
+                                        // Anything less than a billion
+                                        $format = number_format($bc->Score / 1000000, 0) . 'M';
+                                    } else {
+                                        // At least a billion
+                                        $format = number_format($bc->Score / 1000000000, 0) . 'B';
+                                    }
+                                
+                                @endphp
+                                {{$format}}      
+                              </p> 
+                        @endif
+                    @endforeach
                 </td>
-                <td> 
-                    <p style="margin-top: 15px;font-size: 16px;color: red">{{$char->Deads}}</p>
+                <td>                      
+                    @foreach($devil as $d)
+                        @if($char->Name == $d->Name)      
+                            <p style="margin-top: 15px;font-size: 16px;font-weight: bold;"> 
+                                @php 
+                                    if ($d->Score < 1000000) {
+                                        // Anything less than a million
+                                        $format = number_format($d->Score / 1000, 0) . 'k';
+                                    } else if ($number < 1000000000) {
+                                        // Anything less than a billion
+                                        $format = number_format($d->Score / 1000000, 0) . 'M';
+                                    } else {
+                                        // At least a billion
+                                        $format = number_format($d->Score / 1000000000, 0) . 'B';
+                                    }
+                                
+                                @endphp
+                                {{$format}}    
+                            </p>                            
+                        @endif
+                    @endforeach
+                </td>
+                <td>                      
+                    @foreach($chaos as $c)
+                        @if($char->Name == $c->Name)                                                              
+                            <p style="margin-top: 15px;font-size: 16px;font-weight: bold;">                                                                 
+                                @php 
+                                    if ($c->Score < 1000000) {
+                                        // Anything less than a million
+                                        $format = number_format($c->Score / 1000, 0) . 'k';
+                                    } else if ($number < 1000000000) {
+                                        // Anything less than a billion
+                                        $format = number_format($c->Score / 1000000, 0) . 'M';
+                                    } else {
+                                        // At least a billion
+                                        $format = number_format($c->Score / 1000000000, 0) . 'B';
+                                    }
+                                
+                                @endphp
+                                {{$format}}    </p> 
+                        @endif
+                    @endforeach
                 </td>
 
                 <td>

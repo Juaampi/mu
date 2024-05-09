@@ -36,8 +36,17 @@
             </span>
             <span class="user-role">{{Auth::user()->memb___id}}</span>
             <span class="user-status">
-              <i class="fa fa-circle"></i>
-              <span>Online</span>
+              @if(Auth::user()->status->ConnectStat == 1)
+              <span class="user-status">              
+                <i class="fa fa-circle"></i>
+                <span>Online In-Game</span>
+              </span>
+              @else
+              <span class="user-status">              
+                <i style="color: red !important" class="fa fa-circle"></i>
+                <span>Offline In-Game</span>
+              </span>
+              @endif
             </span>
           </div>
         </div>        
@@ -134,6 +143,9 @@
             <p><strong>Registrado: </strong> {{Auth::user()->created_at}} </p>
             <p><strong>Email: </strong> {{Auth::user()->mail_addr}} </p>
             <p><strong>País: </strong> <img src="img/flags/{{Auth::user()->country}}.gif"> </p>
+            @if(Auth::user()->AccountLevel == 3)
+            <p><span style="color: #ffffff;font-size: 12px;background: #ffd600;padding: 4px;font-weight: bold;border-radius: 3px;margin-left: 3px;">VIP</span> Expira el: <strong>{{date('d-m-Y', strtotime(Auth::user()->AccountExpireDate)) }}</strong> a las <strong>{{date('H:i', strtotime(Auth::user()->AccountExpireDate)) }}</strong> GTM-3 </p>
+            @endif
               </div>
           </div>
           </div>

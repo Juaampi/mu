@@ -9,7 +9,10 @@
         "laravel/framework": "5.3.*",
         "mercadopago/dx-php": "^1.12",
         "paypal/rest-api-sdk-php": "^1.14",
-        "peterbodnar.com/base32": "^1.0"
+        "peterbodnar.com/base32": "^1.0",
+        "riari/laravel-forum": "~3.0",
+        "riari/laravel-forum-frontend": "~1.0",
+        "socieboy/forum": " dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

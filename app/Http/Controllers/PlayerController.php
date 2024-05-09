@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\User;
 use App\News;
 use App\Guild;
-use App\GuildMember; 
+use App\GuildMembers; 
 use App\Character; 
 use App\Account; 
 use App\Preferencia; 
@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Input;
 class PlayerController extends Controller
 {
     public function ranking(){
-        $chars = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->where('ctlcode','!=', '32')->orderBy('MasterLevel', 'desc')->orderBy('cLevel','desc')->get();    
-        $guild = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('GuildMember', 'GuildMember.Name', '=', 'Character.Name')->join('Guild', 'GuildMember.G_Name', '=', 'Guild.G_Name')->where('ctlcode','!=', '32')->orderBy('MasterLevel', 'desc')->orderBy('cLevel','desc')->get();    
+        $chars = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->where('ctlcode','!=', '32')->orderBy('ResetCount', 'desc')->orderBy('MasterLevel', 'desc')->orderBy('cLevel','desc')->get();    
+        $guild = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('GuildMember', 'GuildMember.Name', '=', 'Character.Name')->join('Guild', 'GuildMember.G_Name', '=', 'Guild.G_Name')->where('ctlcode','!=', '32')->orderBy('ResetCount', 'desc')->orderBy('MasterLevel', 'desc')->orderBy('cLevel','desc')->get();    
         return view('rankings', ['chars' => $chars, 'guild' => $guild]);
     }
 
@@ -29,8 +29,7 @@ class PlayerController extends Controller
         $devil = DB::table('Character')->join('RankingDevilSquare', 'Character.Name', '=', 'RankingDevilSquare.Name')->get();
         $duelos = DB::table('Character')->join('RankingDuel', 'Character.Name', '=', 'RankingDuel.Name')->get();
         $ilusion = DB::table('Character')->join('RankingIllusionTemple', 'Character.Name', '=', 'RankingIllusionTemple.Name')->get();
-        $santa = DB::table('Character')->join('EventSantaClaus', 'Character.Name', '=', 'EventSantaClaus.Name')->get();
-        $tvt = DB::table('Character')->join('RankingTvT', 'Character.Name', '=', 'RankingTvT.Name')->get();                
+        $santa = DB::table('Character')->join('EventSantaClaus', 'Character.Name', '=', 'EventSantaClaus.Name')->get();        
         $guild = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('GuildMember', 'GuildMember.Name', '=', 'Character.Name')->join('Guild', 'GuildMember.G_Name', '=', 'Guild.G_Name')->where('ctlcode','!=', '32')->orderBy('MasterLevel', 'desc')->orderBy('cLevel','desc')->get();            
         
         foreach($charse as $char){
@@ -68,21 +67,15 @@ class PlayerController extends Controller
                     $score = $score - ($d->LoseScore * 1000);
                 }
             }
-            foreach($tvt as $t){
-                if($t->Name == $char->Name){
-                    $score = $score + ($t->Kills * 100);
-                    $score = $score - ($t->Deads * 1000);
-                }
-            }
-
+           
             $affected = DB::table('Character')
               ->where('Name', $char->Name)
               ->update(['eternal' => intval($score)]);                     
         }
 
         $chars = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('MEMB_INFO', 'Character.AccountID', '=', 'MEMB_INFO.memb___id')->join('MEMB_STAT', 'Character.AccountID', '=', 'MEMB_STAT.memb___id')->where('ctlcode','!=', '32')->orderBy('Eternal','desc')->get();    
-
-        return view('eternal', ['chars' => $chars, 'guild' => $guild]);
+        $blood2 = DB::table('RankingBloodCastle')->get();
+        return view('eternal', ['chars' => $chars, 'guild' => $guild, 'blood' => $blood2, 'chaos' => $chaos, 'devil' => $devil]);
     }
 
     public function duels(){
@@ -115,6 +108,10 @@ class PlayerController extends Controller
         return view('devilsquare', ['chars' => $chars, 'guild' => $guild]);
     }
 
+    public function forum(){
+        return view('vendor.forum.category.index');
+    }
+
     public function information(){
         set_time_limit(0);
         ini_set('memory_limit','1000M');
@@ -122,7 +119,7 @@ class PlayerController extends Controller
         $accs = DB::table('MEMB_INFO')->count();
         $online = DB::table('MEMB_STAT')->where('ConnectStat', '=', '1')->count();
         $clanes = DB::table('Guild')->count();
-        $infos = DB::table('info')->get();
+        $infos = DB::table('info')->orderBy('created_at', 'desc')->get();
         $origin = Input::get('origin');
         $destination = Input::get('destination');
         $json = file_get_contents('items.json');    
@@ -139,7 +136,7 @@ class PlayerController extends Controller
     }
 
     public function mercadopago(Request $request){
-        \MercadoPago\SDK::setAccessToken("TEST-7618076562004730-061013-c873bac26a20c8276da581eddf30cb4f-439706810");
+        \MercadoPago\SDK::setAccessToken("APP_USR-7618076562004730-061013-cf854f320aa2e1acd4df53d67c5a7e49-439706810");
         $preference = new \MercadoPago\Preference();
         $payer = new \MercadoPago\Payer;
         $item1 = new \MercadoPago\Item;
@@ -187,9 +184,20 @@ class PlayerController extends Controller
         $user->save();
         return redirect()->back()->with('reset', 'true');                                       
     }
+
+    public function guild(Request $request){
+        $guild = Guild::where('G_Name', '=', $request->G_Name)->first();
+        $members = Character::where('G_Name', '=', $request->G_Name)->join('GuildMember', 'Character.Name', '=', 'GuildMember.Name')->join('MasterSkillTree', 'GuildMember.name', '=', 'MasterSkillTree.name')->get();        
+        $guilds = DB::table('Character')->join('MasterSkillTree', 'Character.name', '=', 'MasterSkillTree.name')->join('GuildMember', 'GuildMember.Name', '=', 'Character.Name')->join('Guild', 'GuildMember.G_Name', '=', 'Guild.G_Name')->get();    
+        return view('guild', ['guild' => $guild, 'chars' => $members, 'guilds' => $guilds]);
+        
+    }
+
+
     public function coins(){
         $preferencias = Preferencia::where('memb_id', '=', Auth::user()->memb___id)->get();
-        return view('coins', ['preferencias' => $preferencias]);
+        $cuenta = DB::table('MEMB_INFO')->join('MEMB_STAT', 'MEMB_INFO.memb___id', '=', 'MEMB_STAT.memb___id')->where('MEMB_INFO.memb___id', '=', Auth::user()->memb___id)->first();
+        return view('coins', ['preferencias' => $preferencias, 'cuenta' => $cuenta]);
     }
 
     public function dashboard(){
